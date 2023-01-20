@@ -1,0 +1,14 @@
+<h1>Twitter</h1>
+
+<p><%= link_to 'New post', new_twitt_path %></p>
+
+<% @twitts.each do |twitt| %>
+  <time datetime="<%= twitt.showed_created_at %>">
+    <%= twitt.showed_created_at %>
+  </time>
+  <p><%= twitt.body %>
+  <br>
+    <%= link_to 'Edit', edit_twitt_path(twitt) %>
+    <%= button_to "delete", twitt, method: :delete %>
+  </p>
+<% end %>

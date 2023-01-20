@@ -1,0 +1,7 @@
+<div>
+  <%= form_with model: @twitt do |f| %>
+    <%= f.text_area :body, required: true, maxlength: 255, placeholder: "New post" %>
+
+    <%= f.submit 'Save post' %>
+  <% end %>
+</div>
