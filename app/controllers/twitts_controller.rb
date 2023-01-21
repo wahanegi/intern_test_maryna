@@ -1,4 +1,6 @@
 class TwittsController < ApplicationController
+  before_action :authenticate_user!, :only => [:new]
+  protect_from_forgery with: :null_session
   def destroy
     @twitt = Twitt.find_by id: params[:id]
     @twitt.destroy
@@ -13,7 +15,8 @@ class TwittsController < ApplicationController
   end
 
   def create
-    @twitt = Twitt.new twitt_params
+     @twitt = Twitt.new twitt_params
+
     if @twitt.save
       redirect_to twitts_path
     else
@@ -39,3 +42,5 @@ class TwittsController < ApplicationController
     params.require(:twitt).permit(:body)
   end
 end
+
+
