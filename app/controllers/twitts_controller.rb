@@ -5,10 +5,11 @@ class TwittsController < ApplicationController
   def destroy
     @twitt = Twitt.find_by id: params[:id]
     @twitt.destroy
+
     redirect_to twitts_path
   end
   def index
-    @twitts = Twitt.all.order(created_at: :desc)
+    @twitts = Twitt.latest
   end
 
   def new
@@ -16,7 +17,7 @@ class TwittsController < ApplicationController
   end
 
   def create
-     @twitt = Twitt.new twitt_params
+     @twitt = Twitt.new twitt_params.merge({user_id: current_user.id})
 
     if @twitt.save
       redirect_to twitts_path
@@ -31,6 +32,7 @@ class TwittsController < ApplicationController
 
   def update
     @twitt = Twitt.find_by id: params[:id]
+
     if @twitt.update twitt_params
       redirect_to twitts_path
     else
@@ -42,7 +44,4 @@ class TwittsController < ApplicationController
   def twitt_params
     params.require(:twitt).permit(:body)
   end
-
 end
-
-
