@@ -1,4 +1,5 @@
 class Twitt < ApplicationRecord
+  belongs_to :user
 
   validates :body, presence: true, length: {maximum: 255}
   scope :latest, -> { order(created_at: :desc) }

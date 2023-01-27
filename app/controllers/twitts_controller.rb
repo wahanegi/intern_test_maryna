@@ -9,22 +9,14 @@ class TwittsController < ApplicationController
     redirect_to twitts_path
   end
   def index
-    @twitts = Twitt.latest
+    @twitts = Twitt.includes(:user).latest
   end
 
   def new
     @twitt = Twitt.new
   end
 
-  def create
-     @twitt = Twitt.new twitt_params.merge({user_id: current_user.id})
 
-    if @twitt.save
-      redirect_to twitts_path
-    else
-      render :new
-    end
-  end
 
   def edit
     @twitt = Twitt.find_by id: params[:id]
@@ -37,6 +29,15 @@ class TwittsController < ApplicationController
       redirect_to twitts_path
     else
       render :edit
+    end
+  end
+  def create
+    @twitt = Twitt.new twitt_params.merge({user_id: current_user.id})
+
+    if @twitt.save
+      redirect_to twitts_path
+    else
+      render :new
     end
   end
 
