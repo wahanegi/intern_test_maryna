@@ -1,5 +1,11 @@
 <div class="row">
   <div class="col-6 offset-4">
+    <% if flash[:notice] %>
+      <p class="alert"><%= flash[:notice] %></p>
+    <% end %>
+    <% if  flash[:alert] %>
+      <p class="alert"><%= flash[:alert] %></p>
+    <% end %>
     <h1><%= t('.sign_in') %></h1>
 
     <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
@@ -23,7 +29,7 @@
       <% end %>
 
       <div class="form-group">
-        <%= f.submit  t('.sign_in'), class: 'btn btn-primary' %>
+        <%= f.submit  t('.sign_in'), data: { turbo: "false"}, class: 'btn btn-primary' %>
       </div>
     <% end %>
 
